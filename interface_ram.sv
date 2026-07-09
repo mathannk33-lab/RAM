@@ -13,6 +13,7 @@ endclocking
 clocking mon @(posedge clk);
 default input #0 output #0;
 input read_data_out;
+input add;
 endclocking 
 
 clocking ref_cb @(posedge clk);

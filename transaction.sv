@@ -21,7 +21,6 @@ endfunction
 endclass
 
 class ram_trans1 extends ram_trans;
-//constraint c2{add == 1;}
 constraint c{{write_en,read_en}==2'b01;}
 virtual function ram_trans copy();
 ram_trans copy1;
@@ -37,7 +36,6 @@ endclass
 
 class ram_trans2 extends ram_trans;
 constraint c1{{write_en,read_en}==2'b10;}
-//constraint c2{add==1;}
 virtual function ram_trans copy();
 ram_trans copy2;
 copy2=new();
@@ -52,7 +50,7 @@ endclass
 
 class ram_trans3 extends ram_trans;
 constraint c{{write_en,read_en}==2'b10;}
-
+constraint c1{unique{add};}
 virtual function ram_trans copy();
 ram_trans copy3;
 copy3=new();
@@ -67,7 +65,7 @@ endclass
 
 class ram_trans4 extends ram_trans;
 constraint c{{write_en,read_en}==2'b01;}
-
+constraint c1{unique{add};}
 virtual function ram_trans copy();
 ram_trans copy4;
 copy4=new();
@@ -84,7 +82,7 @@ class ram_trans5 extends ram_trans;
 bit [1:0] prev;
 bit first=1;
 constraint c{{write_en,read_en}inside {2'b10,2'b01};}
-constraint c3{add==1;}
+constraint c3{add ==1;}
 constraint c2{
 if(!first)
 {write_en,read_en}!=prev;

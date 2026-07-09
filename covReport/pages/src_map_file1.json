@@ -1,0 +1,8 @@
+var g_data = {'dummy':null,
+'5':'driver.sv',
+'4':'generator.sv',
+'1':'interface_ram.sv',
+'6':'monitor.sv',
+'7':'package_ram.sv',
+'3':'ram.sv',
+'2':'top_tb.sv'};

@@ -1,0 +1,5 @@
+var g_db_data = [
+{dummy:0},
+{name:'cg',f:1,type:6,id:86,tb:'40',h:'40',m:'0',hp:'100.00%',cov:['100.00%','G'],g:'100.00%',gp:['100.00%','G'],opts:[[],['merge_instance','auto(true)']],hdlPath:'/package_ram/ram_drv',parent:'85'},
+{name:'cg',f:1,type:6,id:93,tb:'1',h:'1',m:'0',hp:'100.00%',cov:['100.00%','G'],g:'100.00%',gp:['100.00%','G'],opts:[[],['merge_instance','auto(true)']],hdlPath:'/package_ram/ram_mon',parent:'92'}];
+processConsCovergroupsData(g_db_data);

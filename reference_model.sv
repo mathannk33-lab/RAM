@@ -5,6 +5,7 @@ mailbox #(ram_trans) dr;
 virtual ram_if.cb_ref vif;
 mailbox #(ram_trans) rs;
 reg [`DATA_WIDTH-1:0] mem [`DATA_DEPTH-1:0];
+reg [`DATA_WIDTH-1:0] store;
 
 function new(mailbox #(ram_trans)dr,mailbox #(ram_trans) rs,virtual ram_if.cb_ref vif);
 this.rs=rs;
@@ -17,23 +18,28 @@ for(int i=0;i<`num_transactions;i++)
 begin
 r_trans=new();
 dr.get(r_trans);
-if(vif.rst==0)
+repeat(1)@(vif.ref_cb);
+if(vif.rst==0 || {r_trans.write_en,r_trans.read_en}==2'b11)begin
 r_trans.read_data_out=8'hz;
+store='hx;
+end
+else if({r_trans.write_en,r_trans.read_en}==2'b00) r_trans.read_data_out=store;
 else
-repeat (1) @(vif.ref_cb);
 begin
 if(r_trans.write_en)begin
 mem[r_trans.add]=r_trans.write_data;
+r_trans.read_data_out=store;
 $display("REFERENCE MODEL DATA IN MEMORY MEM[%0h]=%0h",r_trans.add,mem[r_trans.add],$time);
 end
 
 if(r_trans.read_en)begin
 r_trans.read_data_out=mem[r_trans.add];
+store=mem[r_trans.add];
 $display("REFERENCE MODEL DATA IN MEMORY MEM[%0h]=%0h",r_trans.add,mem[r_trans.add],$time);
 end
 
-rs.put(r_trans);
 end
+rs.put(r_trans);
 end
 endtask
 
